@@ -62,8 +62,14 @@ while not stop_button:
         .with_where(where_filter)
         .do()
     )
-
-    transcription_chunks = response['data']['Get'][class_name]
+    
+    transcription_chunks = []
+    
+    try:
+        transcription_chunks = response['data']['Get'][class_name]
+    except Exception as e:
+        print(f"ERRORS: {e}")
+    
 
     try:
         if response['errors']:
