@@ -27,5 +27,127 @@
         ]
       }
     }
+  },
+  {
+    "name": "main.py",
+    "path": "streamlit_weaviate_chat/main.py",
+    "content": {
+      "structured": {
+        "description": "A Streamlit application that allows users to ask questions and receive responses from a language model trained on a combination of OpenAI and Hugging Face datasets. The app uses the `streamlit` and `logging` libraries, and utilizes the `weaviate_retriever`, `ensemble_retriever_from_docs`, and `create_full_chain` functions to generate responses. The code also includes a function for getting secrets or input from users, and a function for running the application. In summary, the code defines a Streamlit app that uses language models to answer user questions.",
+        "items": [
+          {
+            "id": "ad2354ba-2a33-3999-144d-0fa60259a4a1",
+            "ancestors": [],
+            "description": "Manages chat interactions between an assistant and a user, storing responses from the assistant in a list for later use. It provides a prompt to the user, then waits for their input before returning a response from the assistant.",
+            "params": [
+              {
+                "name": "qa",
+                "type_name": "ask_question",
+                "description": "Used to pass a question to be answered by the user through the chat interface."
+              },
+              {
+                "name": "prompt_to_user",
+                "type_name": "str",
+                "description": "Used to display a message to the user, such as \"How may I help you?\"."
+              }
+            ],
+            "returns": null,
+            "name": "show_ui",
+            "location": {
+              "start": 16,
+              "insert": 17,
+              "offset": " ",
+              "indent": 4,
+              "comment": null
+            },
+            "item_type": "function",
+            "length": 20,
+            "docLength": null
+          },
+          {
+            "id": "82b15814-32fd-dcb9-574d-13f0d6bb03a4",
+            "ancestors": [],
+            "description": "Generates a full chain of knowledge based on the input `openai_api_key`. It utilizes the `weaviate_retriever()` function to create the chain, and stores the resulting chat history in the `chat_memory` variable.",
+            "params": [
+              {
+                "name": "openai_api_key",
+                "type_name": "object",
+                "description": "Used to configure OpenAI's language model for chat generation."
+              }
+            ],
+            "returns": {
+              "type_name": "Chain",
+              "description": "A created full chain using Weaviate Retriever and OpenAI API key."
+            },
+            "name": "get_chain",
+            "location": {
+              "start": 40,
+              "insert": 41,
+              "offset": " ",
+              "indent": 4,
+              "comment": null
+            },
+            "item_type": "function",
+            "length": 5,
+            "docLength": null
+          },
+          {
+            "id": "172e67b6-6639-6db2-334b-d72fed09e145",
+            "ancestors": [],
+            "description": "Retrieves a secret value from the user if it is not already stored in memory, and stores the provided secret value in memory for future use.",
+            "params": [
+              {
+                "name": "secret_key",
+                "type_name": "str",
+                "description": "Used to retrieve a secret value from the secrets store."
+              },
+              {
+                "name": "secret_name",
+                "type_name": "str",
+                "description": "Used to refer to the name of the secret being requested or provided by the user, such as \"password\" or \"credit card number\"."
+              },
+              {
+                "name": "info_link",
+                "type_name": "str",
+                "description": "An optional hyperlink to provide additional information related to the secret input, such as a help page or documentation."
+              }
+            ],
+            "returns": {
+              "type_name": "str",
+              "description": "The user's input for the given secret key or the predefined default value if the secret key is not found in the secrets store."
+            },
+            "name": "get_secret_or_input",
+            "location": {
+              "start": 47,
+              "insert": 48,
+              "offset": " ",
+              "indent": 4,
+              "comment": null
+            },
+            "item_type": "function",
+            "length": 12,
+            "docLength": null
+          },
+          {
+            "id": "3e609866-81fb-99b3-d54a-a9d8537f5d34",
+            "ancestors": [],
+            "description": "Sets variables for OpenAI and HuggingFace Hub API keys, checks their availability, and runs a chain of questions based on the available API key.",
+            "params": [],
+            "returns": null,
+            "name": "run",
+            "location": {
+              "start": 61,
+              "insert": 62,
+              "offset": " ",
+              "indent": 4,
+              "comment": null
+            },
+            "item_type": "function",
+            "length": 27,
+            "docLength": null
+          }
+        ]
+      }
+    }
   }
 ]
