@@ -4,12 +4,12 @@
     "path": "streamlit_weaviate_summary/main.py",
     "content": {
       "structured": {
-        "description": "A simple live transcription summary using Weaviate, a real-time AI API. It fetches and displays data from a Weaviate collection named `collectionname` and sorts it by timestamp in descending order. The code uses various high-level packages such as `import streamlit as st`, `import os`, `import pandas as pd`, `import weaviate`, `import time`, `import re`, and `import datetime`. The main functions are `fetch_and_display_data()` which queries the Weaviate database, sorts the data by timestamp, and displays it in a summary format using Streamlit.",
+        "description": "A Web App using the Sanic web framework that transcribes audio files and displays a summary of the conversation in real-time. It uses the Weaviate API for real-time transcription and stores the data in a MySQL database. The app also includes a stop button to end the transcription process.",
         "items": [
           {
-            "id": "3e5d828d-d988-68ad-6d49-86414b04ab3d",
+            "id": "b164e229-251d-94a3-5945-6523a93cc2b7",
             "ancestors": [],
-            "description": "Retrieves data from a database, processes it, and displays it in an HTML page using Markdown.",
+            "description": "Queries a database, retrieves transcription data for multiple speakers and segments, sorts the data based on timestamp, and displays each entry as a markdown table with speaker, segment, summary, and timestamp.",
             "params": [],
             "returns": null,
             "name": "fetch_and_display_data",
