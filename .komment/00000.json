@@ -1,0 +1,31 @@
+[
+  {
+    "name": "main.py",
+    "path": "streamlit_weaviate_summary/main.py",
+    "content": {
+      "structured": {
+        "description": "A Weaviate client and queries a collection named \"collectionname\" for entries after a specific time stamp. It creates a placeholder for the transcription summary and fetches and displays the data in chunks. The code uses the `st` package for creating interactive interfaces, the `weaviate` package for interacting with Weaviate, and the `datetime` and `re` modules for working with dates and regular expressions, respectively.",
+        "items": [
+          {
+            "id": "99ab6755-df51-2f8b-3c41-8bb513079080",
+            "ancestors": [],
+            "description": "Queries a database, retrieves data, and sorts it by timestamp. It then displays each entry's speaker, segment, summary, and timestamp in a markdown format using the Stardict library.",
+            "params": [],
+            "returns": null,
+            "name": "fetch_and_display_data",
+            "location": {
+              "start": 99,
+              "insert": 101,
+              "offset": " ",
+              "indent": 4,
+              "comment": null
+            },
+            "item_type": "function",
+            "length": 39,
+            "docLength": null
+          }
+        ]
+      }
+    }
+  }
+]

@@ -98,6 +98,12 @@ summary_placeholder = st.empty()
 # Function to fetch and display data
 def fetch_and_display_data():
     # Query the database
+    """
+    Queries a database, retrieves data, and sorts it by timestamp. It then displays
+    each entry's speaker, segment, summary, and timestamp in a markdown format
+    using the Stardict library.
+
+    """
     response = (
         client.query
         .get(class_name, ["speaker", "segment", "summary", "earliestTimestamp"])
