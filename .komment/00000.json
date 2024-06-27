@@ -4,12 +4,12 @@
     "path": "streamlit_weaviate_summary/main.py",
     "content": {
       "structured": {
-        "description": "A Web App using the Sanic web framework that transcribes audio files and displays a summary of the conversation in real-time. It uses the Weaviate API for real-time transcription and stores the data in a MySQL database. The app also includes a stop button to end the transcription process.",
+        "description": "A Weaviate client and queries a collection named \"collectionname\" for entries after a specific time stamp. It creates a placeholder for the transcription summary and fetches and displays the data in chunks. The code uses the `st` package for creating interactive interfaces, the `weaviate` package for interacting with Weaviate, and the `datetime` and `re` modules for working with dates and regular expressions, respectively.",
         "items": [
           {
-            "id": "b164e229-251d-94a3-5945-6523a93cc2b7",
+            "id": "99ab6755-df51-2f8b-3c41-8bb513079080",
             "ancestors": [],
-            "description": "Queries a database, retrieves transcription data for multiple speakers and segments, sorts the data based on timestamp, and displays each entry as a markdown table with speaker, segment, summary, and timestamp.",
+            "description": "Queries a database, retrieves data, and sorts it by timestamp. It then displays each entry's speaker, segment, summary, and timestamp in a markdown format using the Stardict library.",
             "params": [],
             "returns": null,
             "name": "fetch_and_display_data",
