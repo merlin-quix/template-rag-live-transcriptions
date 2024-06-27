@@ -1,8 +1,11 @@
 import streamlit as st
 import os
+import pandas as pd
 import weaviate
 import time
 import re
+from datetime import datetime, timezone
+from dateutil.parser import parse
 
 # for local dev, load env vars from a .env file
 from dotenv import load_dotenv
@@ -13,16 +16,56 @@ collectionname = os.getenv('COLLECTIONNAME')
 st.set_page_config(
     page_title="Simple Live Transcription Summary",
     page_icon="🧊",
-    layout="wide",
 )
 
-st.title('Simple Live Transcription Summary')
+# Custom CSS for styling
+st.markdown("""
+    <style>
+    .main {
+        background-color: #f9f9f9;
+        font-family: 'Arial', sans-serif;
+    }
+    .header {
+        background-color: #005689;
+        color: white;
+        padding: 10px;
+        text-align: center;
+    }
+    .entry {
+        background-color: white;
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+    .entry h3 {
+        color: #005689 !important;
+        font-weight: bold !important;  /* Make the header bold */
+    }
+    .entry p {
+        margin: 5px 0 !important;
+        color: #333 !important;  /* Darker text color */
+    }
+    .entry .speaker {
+        font-weight: bold !important;
+        color: #000 !important;  /* Darker text color */
+    }
+    .debug-info {
+        color: #333;
+        font-size: 14px;
+        margin: 10px 0;
+    }
+    </style>
+""", unsafe_allow_html=True)
 
-st.markdown('A continuously updating summary of the ongoing discussion based on a live transcript.')
+st.image("title_header.png", caption="Simple Live Transcription Summary", use_column_width=True)
+st.markdown('<p>A continuously updating summary of the ongoing discussion based on a live transcript.</p>', unsafe_allow_html=True)
 
 # ADD DEBUG INFO
-st.write(f" * Using collection name: {collectionname}")
-st.write(f" * Using URL: {os.getenv('WEAVIATE_REST_ENDPOINT')}") 
+# st.markdown(f'<div class="debug-info">Using collection name: {collectionname}</div>', unsafe_allow_html=True)
+print(f"Using collection name: {collectionname}")
+# st.markdown(f'<div class="debug-info">Using URL: {os.getenv("WEAVIATE_REST_ENDPOINT")}</div>', unsafe_allow_html=True)
+print(f"Using URL: {os.getenv('WEAVIATE_REST_ENDPOINT')}")
 
 auth_config = weaviate.auth.AuthApiKey(api_key=os.getenv('WEAVIATE_APIKEY'))
 
@@ -42,7 +85,7 @@ where_filter = {
     "path": ["earliestTimestamp"],
     "operator": "GreaterThan",
     # Use either `valueDate` with a `RFC3339` datetime or `valueText` as Unix epoch milliseconds
-    "valueDate": "2024-06-05T19:32:58Z"  # Example Unix epoch milliseconds
+    "valueDate": "2024-06-25T10:32:58Z"  # Example Unix epoch milliseconds
 }
 
 # Create the stop button
@@ -52,8 +95,8 @@ stop_button = stop_button_placeholder.button("Stop")
 # Create a placeholder for the transcription summary
 summary_placeholder = st.empty()
 
-# Loop until the stop button is clicked
-while not stop_button:
+# Function to fetch and display data
+def fetch_and_display_data():
     # Query the database
     response = (
         client.query
@@ -62,14 +105,8 @@ while not stop_button:
         .with_where(where_filter)
         .do()
     )
-    
-    transcription_chunks = []
-    
-    try:
-        transcription_chunks = response['data']['Get'][class_name]
-    except Exception as e:
-        print(f"ERRORS: {e}")
-    
+
+    transcription_chunks = response['data']['Get'][class_name]
 
     try:
         if response['errors']:
@@ -81,25 +118,31 @@ while not stop_button:
 
     for chunk in transcription_chunks:
         modified_segment = re.sub(r'\d{4}-\d{2}-\d{2}T', '', chunk['segment'])
+        
         entry = {
             'speaker': chunk['speaker'],
             'segment': modified_segment,
-            'summary': chunk['summary']
+            'summary': chunk['summary'],
+            'timestamp': chunk['earliestTimestamp'],
         }
         data.append(entry)
 
-    # print(data)
-    # Create DataFrame
-    # df = pd.DataFrame(data)
+    # Sort the data by timestamp in descending order
+    data.sort(key=lambda x: parse(x['timestamp']), reverse=True)
 
     # Clear the placeholder and update it with the latest data
     with summary_placeholder.container():
         for entry in data:
-            st.markdown("___")
-            st.markdown(f"### {entry['segment']}")
-            st.markdown(f"**SPEAKER:** {entry['speaker']}")
-            st.markdown(f"**SUMMARY:** \n\n{entry['summary']}")
+            st.markdown('<div class="entry">', unsafe_allow_html=True)
+            st.markdown(f'''<h5 style="color: #005689; font-weight: bold;"> • {entry["segment"]}</h3>''', unsafe_allow_html=True)
+            summary_text = entry["summary"].replace("\n", "<br>")
+            st.markdown(f'''<p style="color: #333;"><strong>SUMMARY:</strong><br><br> {summary_text}</p>''', unsafe_allow_html=True)
+            st.markdown('</div>', unsafe_allow_html=True)
 
+# Loop until the stop button is clicked
+while not stop_button:
+    fetch_and_display_data()
+    sleepsecs = 10
     # Sleep for a while before the next iteration
-    print("Sleeping for 30 seconds...")
-    time.sleep(30)
+    print(f"Sleeping for {sleepsecs} seconds...")
+    time.sleep(sleepsecs)
