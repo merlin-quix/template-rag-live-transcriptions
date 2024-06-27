@@ -1,0 +1,15 @@
+{
+  "meta": {
+    "version": "1",
+    "updated_at": "2024-06-27T12:54:16.165Z",
+    "created_at": "2024-06-27T12:54:16.895Z",
+    "pipelines": [
+      "69e6f19f-e150-4fd2-b2e2-7417a97271cf"
+    ]
+  },
+  "lookup": [
+    [
+      "streamlit_weaviate_summary/main.py"
+    ]
+  ]
+}

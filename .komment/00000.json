@@ -1,0 +1,31 @@
+[
+  {
+    "name": "main.py",
+    "path": "streamlit_weaviate_summary/main.py",
+    "content": {
+      "structured": {
+        "description": "A simple live transcription summary using Weaviate, a real-time AI API. It fetches and displays data from a Weaviate collection named `collectionname` and sorts it by timestamp in descending order. The code uses various high-level packages such as `import streamlit as st`, `import os`, `import pandas as pd`, `import weaviate`, `import time`, `import re`, and `import datetime`. The main functions are `fetch_and_display_data()` which queries the Weaviate database, sorts the data by timestamp, and displays it in a summary format using Streamlit.",
+        "items": [
+          {
+            "id": "3e5d828d-d988-68ad-6d49-86414b04ab3d",
+            "ancestors": [],
+            "description": "Retrieves data from a database, processes it, and displays it in an HTML page using Markdown.",
+            "params": [],
+            "returns": null,
+            "name": "fetch_and_display_data",
+            "location": {
+              "start": 99,
+              "insert": 101,
+              "offset": " ",
+              "indent": 4,
+              "comment": null
+            },
+            "item_type": "function",
+            "length": 39,
+            "docLength": null
+          }
+        ]
+      }
+    }
+  }
+]
